@@ -2,3 +2,10 @@ express/blog/node_modules
 react/resturents/node_modules
 react/resturents/.env
 express/authentication/.env
+express/authentication/node_modules
+mern/blog/client/node_modules
+mern/blog/server/node_modules
+mern/blog_oAuth/server/node_modules
+mern/blog_oAuth/client/node_modules
+mern/blog_oAuth/server/.env
+mern/blog/server/.env
