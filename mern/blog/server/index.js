@@ -10,14 +10,20 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
-app.use(bodyParser.json({extended: true, limit: "5mb"}));
-app.use(bodyParser.urlencoded({extended: true, limit: "5mb"}));
+app.use(cors(
+    {
+        origin: "http://localhost:3000",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        credentials: true
+    }
+));
+app.use(bodyParser.json({ extended: true, limit: "5mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "5mb" }));
 app.use('/', Router);
 
 
 
-app.listen(8000, () =>{
+app.listen(8000, () => {
     console.log("Server is running on port 8000");
 })
 

@@ -46,11 +46,6 @@ const Login = ({ setIsAuthenticated }) => {
                     setloginValue(loginInValues);
                     sessionStorage.setItem('accesstoken', `Bearer ${res.data.accessToken}`);
                     sessionStorage.setItem('refreshtoken', `Bearer ${res.data.refreshToken}`);
-                    localStorage.setItem('user', JSON.stringify(res.data.username));
-                    localStorage.setItem('fullname', JSON.stringify(res.data.fullname));
-                    localStorage.setItem('email', JSON.stringify(res.data.email));
-                    localStorage.setItem('isAuthenticated', true);
-                    
                     setAcc({
                         fullname: res.data.fullname,
                         username: res.data.username,
@@ -67,7 +62,7 @@ const Login = ({ setIsAuthenticated }) => {
 
     return (
         <>
-            <ToastContainer />
+        <ToastContainer />
             <TextField label="Username" variant="standard" value={loginValue.username} name="username" onChange={(e) => onInputLogin(e)} />
             <TextField type="password" label="Password" variant="standard" value={loginValue.password} name="password" onChange={(e) => onInputLogin(e)} />
             <LoginButton variant="contained" onClick={() => loginUser()}>Login</LoginButton>

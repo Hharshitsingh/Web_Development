@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState, useEffect } from 'react';
 import { DataProvider } from './context/dataProvider';
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import Acccout from './components/admin/accout';
@@ -13,6 +13,7 @@ import LogoutUser from './components/admin/logout';
 import Profile from './components/admin/profile';
 
 const PrivateRoute = ({ isAuthenticated, ...props }) => {
+  console.log(isAuthenticated);
   return isAuthenticated ?
     <>
       <Outlet />
@@ -24,6 +25,19 @@ const PrivateRoute = ({ isAuthenticated, ...props }) => {
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  console.log(isAuthenticated);
+
+  useEffect(() => {
+    setIsAuthenticated(localStorage.getItem('isAuthenticated'));
+    console.log("32");
+    if (isAuthenticated) {
+      console.log("35");
+      <Navigate replace to="/about" />
+      setIsAuthenticated(true);
+    }
+  }, [isAuthenticated]);
+
 
   return (
     <DataProvider>

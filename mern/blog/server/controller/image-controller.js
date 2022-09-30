@@ -11,13 +11,11 @@ conn.once("open", () => {
     gfs = grid(conn.db, mongoose.mongo);
     gfs.collection('photos');
 }).on("error", (err) => {
-    
-    
 }
 );
 
 export const uploadImage = (req, res) => {
-    if(!req.file) {
+    if (!req.file) {
         return res.status(400).json({
             message: "No image provided",
             isSuccess: false,
@@ -32,12 +30,12 @@ export const uploadImage = (req, res) => {
     });
 }
 
-export const getImage = async(req, res) => {
-    try{
-       const file = await gfs.files.findOne({ filename: req.params.filename });
-       const readStream = gridfsBucket.openDownloadStream(file._id);
-         readStream.pipe(res);
-    }catch(err){
+export const getImage = async (req, res) => {
+    try {
+        const file = await gfs.files.findOne({ filename: req.params.filename });
+        const readStream = gridfsBucket.openDownloadStream(file._id);
+        readStream.pipe(res);
+    } catch (err) {
         res.status(404).json({
             message: err
         });

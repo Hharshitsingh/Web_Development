@@ -67,7 +67,9 @@ export const loginUser = async (req, res) => {
         const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_SECRET_KEY, { expiresIn: "1h" });
         const refreshToken = jwt.sign(user.toJSON(), process.env.REFRES_SECRET_KEY, { expiresIn: "15d" });
         const newToken = new Token({
+            userId: user._id,
             token: refreshToken,
+            Date: Date.now(),
         });
         await newToken.save();
 

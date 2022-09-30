@@ -9,3 +9,10 @@ mern/blog_oAuth/server/node_modules
 mern/blog_oAuth/client/node_modules
 mern/blog_oAuth/server/.env
 mern/blog/server/.env
+mern/inshort_clone/server/node_modules
+mern/inshort_clone/client/node_modules
+mern/inshort_clone/server/.env
+mern/inshort_clone/client/.env
+mern/inshort_clone/server/package-lock.json
+mern/inshort_clone/client/package-lock.json
+react/chatapp

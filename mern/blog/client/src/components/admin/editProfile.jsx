@@ -1,10 +1,9 @@
 import { Box, styled, Typography, FormControl, Button, TextField, Grid } from '@mui/material';
-import { useState, useContext } from 'react';
+import { useState} from 'react';
 import { API } from '../../service/api';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { errorNotify, successNotify } from '../../utils/common-utils';
-import { DataContext } from "../../context/dataProvider";
 
 const Wrapper = styled(Box)`
     padding: 20px;
@@ -13,15 +12,12 @@ const Wrapper = styled(Box)`
     }
 `;
 
-const EditProfile = ({ user, setChangeProfile, setUser }) => {
+const EditProfile = ({ user, setChangeProfile }) => {
 
     const editIntialValues = {
-        fullname: user.fullname,
         password: '',
         confirmPassword: ''
     }
-
-    const { setAcc } = useContext(DataContext);
 
     const [editProfile, setEditProfile] = useState(editIntialValues);
 
@@ -33,13 +29,11 @@ const EditProfile = ({ user, setChangeProfile, setUser }) => {
     const handleSubmit = async (e) => {
 
         const username = user.username;
-        const { fullname, password, confirmPassword } = editProfile;
+        const { password, confirmPassword } = editProfile;
 
-        if (fullname === user.fullname && password === '') {
+        if (password === '') {
             errorNotify('No changes made');
             setChangeProfile(true);
-        } else if (fullname === '') {
-            errorNotify('Fullname is required');
         } else if (password.length > 0) {
             if (password.length < 6) {
                 errorNotify('Password must be at least 6 characters');
@@ -58,43 +52,14 @@ const EditProfile = ({ user, setChangeProfile, setUser }) => {
             } else {
                 await API.editProfile({
                     username: username,
-                    fullname: fullname,
                     password: password
                 }).then(res => {
                     successNotify('Profile updated successfully');
                     setChangeProfile(true);
-                    setAcc({
-                        fullname: fullname,
-                        username: user.username,
-                        email: user.email
-                    });
-                    setUser({
-                        ...user,
-                        fullname: fullname
-                    });
                 }).catch(err => {
                     errorNotify(err.message);
                 })
             }
-        } else if (fullname !== user.fullname) {
-            await API.editProfile({
-                username: username,
-                fullname: fullname
-            }).then(res => {
-                successNotify('Profile updated successfully');
-                setChangeProfile(true);
-                setAcc({
-                    fullname: fullname,
-                    username: user.username,
-                    email: user.email
-                });
-                setUser({
-                    ...user,
-                    fullname: fullname
-                });
-            }).catch(err => {
-                errorNotify(err.message);
-            })
         } else {
             setChangeProfile(true);
         }
@@ -111,11 +76,10 @@ const EditProfile = ({ user, setChangeProfile, setUser }) => {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={12} md={12}>
                                 <FormControl>
-                                    <Typography variant="h4">Update Your Profile </Typography>
+                                    <Typography variant="h4">Change Password </Typography>
 
-                                    <TextField label="Enter Name" variant="standard" name="fullname" value={editProfile.fullname} onChange={(e) => handleChange(e)} />
-                                    <TextField label="Enter Password" variant="standard" name="password" value={editProfile.password} onChange={(e) => handleChange(e)} />
-                                    <TextField label="Enter Confirm Password" variant="standard" name="confirmPassword" value={editProfile.confirmPassword} onChange={(e) => handleChange(e)} />
+                                    <TextField label="Enter Password" type="password" variant="standard" name="password" value={editProfile.password} onChange={(e) => handleChange(e)} />
+                                    <TextField label="Enter Confirm Password" type="password" variant="standard" name="confirmPassword" value={editProfile.confirmPassword} onChange={(e) => handleChange(e)} />
 
                                     <Button onClick={(e) => handleSubmit(e)}>Submit</Button>
                                     <ToastContainer />

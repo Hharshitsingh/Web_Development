@@ -1,26 +1,20 @@
-import { useState} from "react";
-import { Box, Button, styled} from "@mui/material";
+import { useState } from "react";
+import { Box, Button, styled } from "@mui/material";
 import Login from "./login";
 import Signup from "./signup";
 
+
 const ComponentStyles = styled(Box)`
+background-image: url(https://cdn.pixabay.com/photo/2014/02/13/07/28/wordpress-265132_960_720.jpg);
+height: 100vh;
+background-position: left 0px bottom 0px;
+background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    width: 100vw;
     background-color: #f5f5f5;
-    padding: 20px;
-    box-shadow: 5px 5px 10px  2px rgba(88, 88, 88, 0.5);
 ` ;
-
-const Image = styled('img')({
-    width: 200,
-    display: 'flex',
-    margin: 'auto',
-    padding: '50px 0 0'
-});
 
 const Wrapper = styled(Box)`
     padding: 20px;
@@ -40,7 +34,6 @@ const LoginButton = styled(Button)`
 
 const Acccout = ({ setIsAuthenticated }) => {
 
-    const imageURL = 'https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png';
 
     const [account, setAccount] = useState('login');
 
@@ -52,20 +45,19 @@ const Acccout = ({ setIsAuthenticated }) => {
         <ComponentStyles>
             <Box>
 
-                <Image src={imageURL} alt="Login" />
                 <Wrapper>
-                {
-                    account === 'login' ?
-                        <>
-                            <Login setIsAuthenticated={setIsAuthenticated} />
-                            <LoginButton variant="outlined" onClick={() => handleAccountChange()}>Create an Account</LoginButton>
-                        </>
-                        :
-                        <>
-                            <Signup setIsAuthenticated={setIsAuthenticated} />
-                            <LoginButton variant="outlined" onClick={() => handleAccountChange()}>Already Have an Account</LoginButton>
-                        </>
-                }
+                    {
+                        account === 'login' ?
+                            <>
+                                <Login setIsAuthenticated={setIsAuthenticated} />
+                                <LoginButton variant="outlined" onClick={() => handleAccountChange()}>Create an Account</LoginButton>
+                            </>
+                            :
+                            <>
+                                <Signup setIsAuthenticated={setIsAuthenticated} />
+                                <LoginButton variant="outlined" onClick={() => handleAccountChange()}>Already Have an Account</LoginButton>
+                            </>
+                    }
                 </Wrapper>
             </Box>
         </ComponentStyles>

@@ -53,7 +53,7 @@ const Profile = () => {
                                             {
                                                 acc.username === user.username ?
                                                     <Button onClick={() => setChangeProfile(!changeProfile)}>
-                                                        Edit Profile
+                                                        Change Password
                                                     </Button>
                                                     :
                                                     ''

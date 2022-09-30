@@ -9,6 +9,10 @@ const LogoutUser = ({ setIsAuthenticated }) => {
     setIsAuthenticated(false);
     sessionStorage.removeItem('accesstoken');
     sessionStorage.removeItem('refreshtoken');
+    localStorage.removeItem('user');
+    localStorage.removeItem('fullname');
+    localStorage.removeItem('email');
+    localStorage.removeItem('isAuthenticated');
     useEffect(() => {
         setAcc({
             fullname: '',
@@ -17,7 +21,7 @@ const LogoutUser = ({ setIsAuthenticated }) => {
         if (!sessionStorage.getItem('accesstoken')) {
             navigate('/');
         }
-    }, []);
+    }, [navigate, setAcc]);
 
 }
 

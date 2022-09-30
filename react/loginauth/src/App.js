@@ -2,6 +2,7 @@ import './App.css';
 import Signup from './Components/Signup';
 import { Container } from 'react-bootstrap';
 import { AuthProvider } from './Contexts/AuthContext';
+import Login from './Components/login';
 
 function App() {
   return (
