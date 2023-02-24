@@ -1,6 +1,4 @@
-import { Box, Card, CardContent, Grid, Typography, styled } from "@mui/material";
-import { margin } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Card, CardContent, Grid, Typography, styled } from "@mui/material";
 
 
 const Image = styled('img')({

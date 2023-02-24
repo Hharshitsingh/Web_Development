@@ -1,18 +1,18 @@
 import News from "../model/news.js";
-import data from "../constant/data.js";
 import dotenv from 'dotenv';
-import Dates from "../model/date.js";
 
 dotenv.config();
 
 export const DefaultData = async (req, res) => {
     let num = 0, newsAPI;
-    newsAPI = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${process.env.NEWSAPI_KEY}`;
+    newsAPI = `https://newsapi.org/v2/top-headlines?country=in&apiKey=d351216229824df1ab8556af095ec4cc`;
     newsAPI = 'https://newsapi.org/v2/top-headlines?country=in&apiKey=d351216229824df1ab8556af095ec4cc'
     newsAPI = 'https://newsapi.org/v2/top-headlines?country=in&from=2022-09-09&to=2022-09-09&apiKey=d351216229824df1ab8556af095ec4cc'
 
     // entertainment health sports
+    // console.log(newsAPI);
     const news = await fetch(newsAPI);
+    console.log(news);
     const newsJSON = await news.json();
     if (newsJSON.status === "ok") {
         const newsData = newsJSON.articles;
