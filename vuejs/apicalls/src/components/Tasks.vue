@@ -1,7 +1,7 @@
 <template>
     <h2>GET API Call</h2>
     <div v-if='isData'>
-        <table class="table">
+        <!-- <table class="table">
             <tr>
                 <th>ID</th>
                 <th>Title</th>
@@ -12,7 +12,30 @@
             <tr v-for="task in apiData.data" :key="task.id">
                 <DisplayTask :task="task" :markComplet="markComplet" :deleteTask="deleteTask"></DisplayTask>
             </tr>
-        </table>
+        </table> -->
+        <div class="row layout-top-spacing">
+            <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
+                <div class="panel br-6 p-0">
+                    <div class="custom-table">
+                        <v-client-table :data="apiData" :columns="columns" :options="options">
+                            <template #completed="props">
+                                <button @click="markComplet(props.row)">Mark Complete</button>
+                                </template>
+                            <template #action="props">
+                                <button @click="deleteTask(props.row)">Delete</button>
+                            </template>
+                            <!-- <template #actions="props">
+                <div class="actions text-center">
+                  <a href="javascript:;" class="cancel" @click="view_row(props.row)">
+                    <button type="button" class="btn btn-primary btn-sm">View</button>
+                  </a>
+                </div>
+              </template> -->
+                        </v-client-table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div v-else class="error">
         <h1>No Data Found</h1>
@@ -21,18 +44,19 @@
 
 <script>
 import axios from 'axios'
-import DisplayTask from './DisplayTask.vue'
+// import DisplayTask from './DisplayTask.vue'
 import qs from 'qs';
-import {API} from '../service/api'
+import { API } from '../service/api'
 
 export default {
     name: "GetTasks",
     components: {
-        DisplayTask
+        // DisplayTask
     },
     data() {
         return {
-            apiData: {},
+            columns: ['id', 'title', 'description', 'priority', 'completed', 'action'],
+            apiData: [],
             isData: false,
             errors: ''
         }
@@ -69,7 +93,8 @@ export default {
                 .then((response) => {
                     if (response.data.status == 'success') {
                         this.isData = true
-                        this.apiData = response.data
+                        this.apiData = response.data.data
+                        console.log(this.apiData)
                     }
                     else {
                         this.isData = false
@@ -80,6 +105,7 @@ export default {
         },
 
         async markComplet(task) {
+            console.log(task)
             var data = qs.stringify({
                 'completed': task.completed == 1 ? 0 : 1
             });
@@ -112,11 +138,12 @@ export default {
             if (confirm('Are you sure you want to delete this task?') != true) {
                 return
             }
+            console.log(task)
 
             var config = {
                 method: 'delete',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:8000/api/tasks/'  + task.id, 
+                url: 'http://localhost:8000/api/tasks/' + task.id,
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -125,6 +152,7 @@ export default {
             };
 
             axios(config).then((response) => {
+                console.log(response)
                 if (response.data.status == 'success') {
                     this.$toast.success('Task Deleted Successfully')
                     this.getData();
@@ -137,9 +165,7 @@ export default {
                 this.$toast.error(this.error)
             })
         }
-
     },
-
 
     async mounted() {
         this.getData();

@@ -5,6 +5,7 @@ import CreateTask from './components/CreateTask.vue';
 import RegisterCompoenet from './components/User/Register.vue';
 import LoginComponent from './components/User/Login.vue';
 import NotFound from './components/NotFound.vue';
+import VeeVa from './components/VeeVa.vue';
 const routes = [
     {
         path: "/",
@@ -30,6 +31,11 @@ const routes = [
         path: "/login",
         name: "Login",
         component: LoginComponent,
+    },
+    {
+        path: "/veeva",
+        name: "VeeVa",
+        component: VeeVa,
     },
     {
         path: "/:catchAll(.*)",
